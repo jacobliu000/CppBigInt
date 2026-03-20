@@ -10,7 +10,9 @@ class Gargantua {
         std::string str();
 
         Gargantua operator+(const Gargantua& other);
+        Gargantua operator==(const Gargantua& other);
 
     private:
+        bool is_negative = false;
         std::vector<long long> internal;
 };

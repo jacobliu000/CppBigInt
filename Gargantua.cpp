@@ -1,6 +1,14 @@
 #include "Gargantua.h"
 #include <sstream> 
+
+
 Gargantua::Gargantua(std::string s) {
+    is_negative = false;
+    
+    if (s[0] == '-') {
+        s.erase(0, 1);
+        is_negative = true;
+    }
     for (int i = s.length(); i > 0; i -= 9) {
         if (i < 9) {
             internal.push_back(std::stoi(s.substr(0, i)));
@@ -9,6 +17,11 @@ Gargantua::Gargantua(std::string s) {
             internal.push_back(std::stoi(s.substr(i-9, 9)));
         }
     }
+}
+
+bool Gargantua::operator==(const Garguantua& other) const {
+    return (is_negative == other.is_negative && internal == other.internal);
+
 }
 
 std::string Gargantua::str() {
