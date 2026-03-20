@@ -9,7 +9,9 @@ int main() {
     Gargantua c("7910552");
     Gargantua d("7910000552");
 
-    cout << a == c << endl; //true
-    cout << a == b << endl; //true
-    cout << c == d << endl; //false
+    Gargantua e("-0000000000000000000000000009");
+    Gargantua f("9");
+    cout << e.str() << endl;
+    cout << f.str() << endl;
+    cout << (e == f) << endl;
 }
