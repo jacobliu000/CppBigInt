@@ -25,7 +25,10 @@ Gargantua::Gargantua(std::string s) {
             break;
         }
     }
+
+    if (internal.empty() || (internal.size() == 0 && internal[0] == 0)) is_negative = false;
 }
+
 
 
 
@@ -46,7 +49,90 @@ std::string Gargantua::str() {
     return ss.str();
 }
 
+
+
 bool Gargantua::operator==(const Gargantua& other) const {
     return is_negative == other.is_negative
         && internal == other.internal;
+}
+
+//1: |a| > |b|, 0: |a| == |b|, -1 |a| < |b|
+int Gargantua::compare_magnitude(const Gargantua& other) const {
+        if (other.internal.size() > internal.size()) return -1;
+        if (internal.size() > other.internal.size()) return 1;
+
+        if (other.internal.size() == internal.size()) {
+            for (int i = internal.size()-1; i>=0; i--) {
+                if (internal[i] > other.internal[i]) {
+                    return 1;
+                }
+                if (other.internal[i] > internal[i]) {
+                    return -1;
+                }
+            }
+        }
+
+        return 0;
+}
+
+bool Gargantua::operator>(const Gargantua& other) const {
+    if (is_negative && !other.is_negative) return false;
+    if (!is_negative && other.is_negative) return true;
+
+    int cmp = compare_magnitude(other);
+
+    if (is_negative) {
+        return cmp == -1;
+    }
+    else {
+        return cmp == 1;
+    }
+    
+}
+
+bool Gargantua::operator<(const Gargantua& other) const {
+    if (is_negative && !other.is_negative) return true;
+    if (!is_negative && other.is_negative) return false;
+
+    int cmp = compare_magnitude(other);
+
+    if (is_negative) {
+        return cmp == 1;
+    }
+    else {
+        return cmp == -1;
+    }
+    
+}
+
+bool Gargantua::operator>=(const Gargantua& other) const {
+    if (is_negative && !other.is_negative) return false;
+    if (!is_negative && other.is_negative) return true;
+
+    int cmp = compare_magnitude(other);
+
+    if (cmp == 0) return true;
+
+    if (is_negative) {
+        return cmp == -1;
+    }
+    else {
+        return cmp == 1;
+    }    
+}
+
+bool Gargantua::operator<=(const Gargantua& other) const {
+    if (is_negative && !other.is_negative) return true;
+    if (!is_negative && other.is_negative) return false;
+
+    int cmp = compare_magnitude(other);
+
+    if (cmp == 0) return true;
+
+    if (is_negative) {
+        return cmp == 1;
+    }
+    else {
+        return cmp == -1;
+    }    
 }
