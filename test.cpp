@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     Gargantua a("51034850234859402393546795402092409401908205");
-    Gargantua b("-51034850234859402393546795402092409401908205");
+    Gargantua b("850234859402393546795402092409401908205");
     Gargantua c("100");
     Gargantua d("00000000000000100");
 
@@ -13,6 +13,10 @@ int main() {
     Gargantua f("-1");
 
     Gargantua g("0");
+
+    cout << (a + b).str() << endl;
+    cout << (a-b).str() << endl;
+    cout << (b-a).str() << endl;
     /*
     cout << (a > a) << endl; //false
     cout << (a <= a) << endl; //true
@@ -35,7 +39,7 @@ int main() {
 
     cout << (f < e) << endl;
 
-    */
+
 
     cout << (a > g) << endl;
     cout << ( a < g) << endl;
@@ -43,5 +47,6 @@ int main() {
     cout << (a == g) << endl;
     cout << (a <= g) << endl;
     cout << (a >= g) << endl;
+    */
 
 }
