@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main() {
+int main() {/*
     Gargantua a("51034850234859402393546795402092409401908205");
     Gargantua b("850234859402393546795402092409401908205");
     Gargantua c("100");
@@ -16,7 +16,16 @@ int main() {
 
     cout << (a + b).str() << endl;
     cout << (a-b).str() << endl;
-    cout << (b-a).str() << endl;
+    cout << (b-a).str() << endl;*/
+
+    Gargantua num1("10394074910010");
+    Gargantua num2("5");
+    Gargantua num3("-0");
+    Gargantua num4("4");
+    Gargantua num5("9999999999");
+
+
+    cout << (num1*num4).str() << endl;
     /*
     cout << (a > a) << endl; //false
     cout << (a <= a) << endl; //true

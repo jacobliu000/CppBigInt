@@ -18,6 +18,10 @@ Gargantua::Gargantua(std::string s) {
         }
     }
 
+    trim();
+
+}
+void Gargantua::trim() {
     for (int i = internal.size()-1; i >= 0; i--) {
         if (internal[i] == 0) {
             internal.pop_back();
@@ -26,15 +30,21 @@ Gargantua::Gargantua(std::string s) {
         }
     }
 
-    if (internal.empty() || (internal.size() == 0 && internal[0] == 0)) is_negative = false;
-}
+    if (internal.empty()) {
+        internal.push_back(0);
+    }
 
+    if (internal.empty() || (internal.size() == 1 && internal[0] == 0)) is_negative = false;
+}
 Gargantua::Gargantua(std::vector<int> intern, bool is_neg) {
     internal = intern;
     is_negative = is_neg;
+    trim();
 }
 
 std::string Gargantua::str() const {
+    if (internal.empty()) return "0";
+
     std::stringstream ss;
 
     if (is_negative) ss << '-';
@@ -195,7 +205,7 @@ Gargantua Gargantua::arithmetic(const Gargantua& other, bool is_neg, bool other_
             return Gargantua("0");
         }
 
-        std::cout << "bigger is " << bigger->str() << std::endl;
+  //      std::cout << "bigger is " << bigger->str() << std::endl;
 
 
 
@@ -222,3 +232,51 @@ Gargantua Gargantua::arithmetic(const Gargantua& other, bool is_neg, bool other_
     }
 }
 
+
+Gargantua Gargantua::operator*(const Gargantua& other) const {
+    std::cout << " HERE ";
+    Gargantua a = karatsube(*this, other);
+    if (is_negative != other.is_negative) a.is_negative = true;
+    else a.is_negative = false;
+    return a;
+
+}
+
+Gargantua Gargantua::karatsube(const Gargantua& first, const Gargantua& second) const {
+
+
+   std::cout << "multiplying " << first.str() << " and " << second.str() << std::endl;
+
+  //  std::cout << second.internal.size() << " "; //segfault here?
+
+    if (first.internal.size() <= 1 && second.internal.size() <= 1) {
+        if (first.internal.size()==0 || second.internal.size()==0) return Gargantua("0");
+        Gargantua ans(std::to_string((long long)first.internal[0] * second.internal[0]));
+        return ans;
+    }
+    int m = std::max(first.internal.size(), second.internal.size()) / 2;
+    std::cout << m;
+
+    Gargantua x_low = Gargantua(std::vector<int>(first.internal.begin(), first.internal.begin() + std::min((int)first.internal.size(), m)), false);
+
+    Gargantua x_high = Gargantua(std::vector<int>(first.internal.begin() + std::min((int)first.internal.size(), m), first.internal.end()), false);
+    
+
+    Gargantua y_low = Gargantua(std::vector<int>(second.internal.begin(), second.internal.begin() + std::min((int)second.internal.size(), m)), false);
+
+    Gargantua y_high = Gargantua(std::vector<int>(second.internal.begin() + std::min((int)second.internal.size(), m), second.internal.end()), false);
+
+
+    Gargantua z2 = karatsube(x_high, y_high);
+    Gargantua z0 = karatsube(x_low, y_low);
+    Gargantua z1 = karatsube((x_high+x_low), (y_high+y_low)) - z2 - z0;
+
+    z1.trim();
+    z2.trim();
+    z0.trim();
+
+    z2.internal.insert(z2.internal.begin(), 2*m, 0);
+    z1.internal.insert(z1.internal.begin(), m, 0);
+
+    return z2 + z1 + z0;
+}
