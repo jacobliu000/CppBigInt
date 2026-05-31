@@ -234,7 +234,7 @@ Gargantua Gargantua::arithmetic(const Gargantua& other, bool is_neg, bool other_
 
 
 Gargantua Gargantua::operator*(const Gargantua& other) const {
-    std::cout << " HERE ";
+//    std::cout << " HERE ";
     Gargantua a = karatsube(*this, other);
     if (is_negative != other.is_negative) a.is_negative = true;
     else a.is_negative = false;
@@ -245,7 +245,7 @@ Gargantua Gargantua::operator*(const Gargantua& other) const {
 Gargantua Gargantua::karatsube(const Gargantua& first, const Gargantua& second) const {
 
 
-   std::cout << "multiplying " << first.str() << " and " << second.str() << std::endl;
+  // std::cout << "multiplying " << first.str() << " and " << second.str() << std::endl;
 
   //  std::cout << second.internal.size() << " "; //segfault here?
 
@@ -255,7 +255,7 @@ Gargantua Gargantua::karatsube(const Gargantua& first, const Gargantua& second) 
         return ans;
     }
     int m = std::max(first.internal.size(), second.internal.size()) / 2;
-    std::cout << m;
+  //  std::cout << m;
 
     Gargantua x_low = Gargantua(std::vector<int>(first.internal.begin(), first.internal.begin() + std::min((int)first.internal.size(), m)), false);
 
